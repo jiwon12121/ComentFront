@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react"
+import React, { useState,useEffect, useContext } from "react"
 import { CiSearch } from "react-icons/ci";
 import styles from "../styles/header.module.css";
 import Modal from "../components/Modal"
@@ -9,6 +9,8 @@ import Dropdown from "./Dropdown";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom';
+import classNames from "classnames";
+import { DataContext } from "../DataContext";
 
 //로그인정보 관련
 import useAuth from "../Auth";
@@ -27,9 +29,8 @@ function Header() {
 
   const [showNavigation, setShowNavigation] = useState(true);
 
-    const toggleNavigation = () => {
-        setShowNavigation(!showNavigation);
-        console.log(showNavigation);
+  const toggleNavigation = () => {
+    setShowNavigation(!showNavigation);
   };
 
   //로그인 정보 
@@ -63,10 +64,59 @@ function Header() {
     navigate(`/search/${keyword}`);
   }
 
+  
+
+  // 다크모드 버튼
+  const [animatedBtn, setAnimatedBtn] = useState(false);
+  const [modeStore, setModeStore] = useState(() => {
+    if(localStorage.getItem("darkmode") === "true") {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    //페이지 로드 시 darkmode 상태를 localStorage에서 불러오기
+    const currentMode = localStorage.getItem("darkmode");
+    console.log(currentMode);
+    
+  }, []);
+
+  const sendMode = useContext(DataContext);
+
+  const toggleDarkMode = () => {
+    setModeStore((prev) => {
+      const newMode = !prev;
+
+      // icon 클래스에 애니메이션 추가
+      setAnimatedBtn(true);
+
+      // localStorage에 darkmode 상태 저장
+      localStorage.setItem("darkmode", JSON.stringify(newMode));
+
+      //app.js로 darkmode 상태 보내기
+      sendMode(newMode);
+
+      return newMode;
+    })
+
+    //애니메이션 클래스 제거 (0.5초 후)
+    setTimeout(() => {
+      setAnimatedBtn(false);
+    }, 500);
+
+  };
+
+
+
 
   return (
     <React.Fragment>
     <>
+    <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+    </head>
       {showNavigation && <SideBar />}
       <div className={styles.container}>
         <div className={styles.menuShow}>
@@ -85,7 +135,24 @@ function Header() {
               <CiSearch size="22" color="#c0c0c0" />
               </button>
             </div>
-          </div>     
+          </div>
+
+          <div className={modeStore ? styles.darkmode : ''}>
+            <div className={styles.btn} onClick={toggleDarkMode}>
+              <div className={styles.btn__indicator}>
+                <div className={styles.btn__iconContainer}>
+                  <i
+                    className={classNames(styles.btn__icon, ["fa-solid"], {
+                      ['fa-sun']: !modeStore,
+                      ['fa-moon']: modeStore,
+                      [styles['animated']]: animatedBtn,
+                    })}
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           {isLoggedIn?(<div className={styles.profileBox}>
             <div className={styles.nickDiv}>
               <a className={styles.nick}>{info.nickname}님 안녕하세요!</a>

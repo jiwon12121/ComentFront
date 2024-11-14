@@ -41,7 +41,6 @@ function FeedList(props) {
             const fetchData = async () => {
                 const response = await axios.get('http://localhost:8000/feed');
                 setFeeds(response.data);
-                console.log(response.data);
             };
             fetchData();
         }
@@ -49,7 +48,11 @@ function FeedList(props) {
     return (
         <>
             {feeds.map((feed) => (
-                <Feed key={feed._id} feed={feed} user={user} isLoggedIn={isLoggedIn}  />
+                <Feed
+                key={feed._id}
+                feed={feed}
+                user={user}
+                isLoggedIn={isLoggedIn}  />
             ))}
         </>
     );

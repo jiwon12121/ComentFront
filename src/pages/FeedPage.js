@@ -9,6 +9,7 @@ import axios from 'axios';
 function FeedPage() {
   const { feed_id } = useParams();
   const [feed, setFeed] = useState();
+  const [darkMode, setDarkMode] = useState();
   useEffect(() => {
     const feedData = async () => {
       try {

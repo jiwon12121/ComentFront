@@ -8,13 +8,46 @@ import MyPage from './pages/MyPage/MyPage';
 import LoginMiddleware from './pages/loginMiddleware';
 import { Cookies } from "react-cookie";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FeedPage from "./pages/FeedPage";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
+import { lightTheme, darkTheme} from "./styles/theme";
+import reset from "styled-reset";
+import { DataContext } from './DataContext';
+
+
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+    body {
+      background: ${({ theme }) => theme.bgColor};
+      color: ${({ theme }) => theme.textColor};
+      transition: background-color 0.3s ease;
+    }
+    textarea {
+      background: transparent;
+    }
+    input {
+      background: transparent;
+      color: ${({ theme }) => theme.textColor};
+    }
+    p {
+      color: ${({ theme }) => theme.textColor};
+    }
+    span {
+      color: ${({ theme }) => theme.textColor};
+    }
+    a {
+      color: ${({ theme }) => theme.textColor};
+    }
+  `;
+
 function App() {
   // 쿠키에 저장된 토큰이 있는지 확인
   const cookies = new Cookies();
   const jwtToken = cookies.get('jwt');
   let userInfo = null;
+
+
   useEffect(() => {
     if(jwtToken) {
       axios.post('http://localhost:8000/login/userInfo',{
@@ -36,18 +69,39 @@ function App() {
       sessionStorage.removeItem('userInfo')
       console.log('토큰이 없습니다.');
     }
+
+    const currentMode = localStorage.getItem("darkmode");
+    setModeStore(JSON.parse(currentMode));
+
   }, []);
   
-  return <Router>
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/feed/:feed_id" element={<FeedPage />} />
-      <Route path="/category/:category" element={<MainPage />} />
-      <Route path="/search/:keyword" element={<MainPage />} />
-      <Route path="/myPage/:user_no" element={<MyPage />} />
-      <Route path="/login" element={<LoginMiddleware />} />
-    </Routes>
-  </Router>;
+  const [modeStore, setModeStore] = useState();
+
+  const receiveMode = (data) => {
+    setModeStore(data);
+    console.log(modeStore);
+  };
+
+  return <>
+      <ThemeProvider theme={ modeStore ? darkTheme : lightTheme }>
+        <GlobalStyle/>
+        <DataContext.Provider value={receiveMode}>
+          <Router>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/feed/:feed_id" element={<FeedPage />} />
+              <Route 
+                path="/category/:category"
+                element={<MainPage />}
+              />
+              <Route path="/search/:keyword" element={<MainPage />} />
+              <Route path="/myPage/:user_no" element={<MyPage />} />
+              <Route path="/login" element={<LoginMiddleware />} />
+            </Routes>
+          </Router>
+        </DataContext.Provider>
+      </ThemeProvider>
+    </>
 }
 
 export default App;

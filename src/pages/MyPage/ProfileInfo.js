@@ -44,20 +44,14 @@ function MyPage() {
 
     const a = JSON.parse(sessionStorage.getItem('userinfo') || '{}');
 
+    console.log(a);
+
     const [email, setEmail] = useState(a.email || '');
     const [nickname, setNickname] = useState(a.nickname || '');
     const [socialType, setSocialType] = useState(a.socialType || '');
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
     
     const handleNicknameChange = (e) => {
         setNickname(e.target.value);
-    };
-    
-    const handleSocialTypeChange = (e) => {
-        setSocialType(e.target.value);
     };
     
     
@@ -128,22 +122,29 @@ function MyPage() {
                 <div className={styles.innerbox}>이미지</div>
                 <div className={styles.span}>
                 <h2>customize profile(optional)</h2>
-                <input className={styles.setname} type="text" value={email} onChange={handleEmailChange} placeholder="profile information" />
+                <input className={ ` ${styles.setname} ${styles.nonSelectInput} ` } type="text" value={email} />
                 </div>
             </div>
             <div className={styles.myclass}>
+
                 <h2>set your nickname(optional)</h2>
                 <p className={styles.graytext}>set your nickname</p>
                 <input className={styles.nickname} type="text" value={nickname} onChange={handleNicknameChange} placeholder="userNickname(optional)" onKeyDown={(e) => e.key === 'Enter' && saveNickname()} />
                 <div className={styles.singleline}></div>
-                <h2>login socialType(optional)</h2>
+
+
+                <h2>login socialType</h2>
                 <p className={styles.graytext}>login socialType</p>
-                <input className={styles.nickname} type="text" value={socialType} onChange={handleSocialTypeChange} placeholder="socialType(optional)" />
+                <input className={`${styles.nickname} ${styles.nonSelectInput} `} type="text" value={socialType} />
                 <div className={styles.singleline}></div>
+
+
                 <h2>about(optional)</h2>
                 <p className={styles.graytext}>set your information</p>
                 <input className={styles.about} type="text" value={aboutValue} onChange={(e) => setAboutValue(e.target.value)} placeholder="about(optional)" onKeyDown={handleKeyDown}/>
                 <div className={styles.singleline}></div>
+
+
                 {toggleStates.map((toggle, index) => (
                      <div key={index} className={styles['toggle-list-item']}>
                         <span>{toggle.content}</span>

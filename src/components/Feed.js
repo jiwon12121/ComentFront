@@ -7,6 +7,20 @@ import { MdDeleteForever } from "react-icons/md";
 import Like from './Like';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const FeedStyle = styled.div`
+    background-color: ${({ theme }) => theme.bgColor};
+    color: ${({ theme }) => theme.textColor};
+    border: ${({ theme }) => theme.borderColor};
+    transition: 0.3s;
+
+    &:hover {
+        background-color: ${({ theme }) => theme.hoverBackground};
+        box-shadow: ${({ theme }) => theme.hoverBoxShadow};
+        cursor: pointer;
+    }
+`;
 
 function Feed(props) {
     Feed.propTypes = {
@@ -154,8 +168,7 @@ function Feed(props) {
     }
     timetText = updated > created? `Updated ${timetText}` : timetText;
 
-    return (<>
-        <div className={style.feed_container}>
+    return (<FeedStyle className={style.feed_container}>
             <div className={style.feed}>
                 <div className={style.profile} >
                     <img className={style.profImg} src="/profile.png" width='40px' height='40px'></img>
@@ -174,7 +187,7 @@ function Feed(props) {
                 ):(
                     <>
                         <h1 className={style.title}><Link to={`/feed/${props.feed._id}`}>{props.feed.title}</Link></h1>
-                        <textarea className={style.content} readOnly value={props.feed.content} />
+                        <p className={style.content}>{props.feed.content}</p>
                     </>
                 )}
                 <div className={style.other_container}>
@@ -201,8 +214,7 @@ function Feed(props) {
                     </form>
                 </div>
             </div>
-        </div>
-    </>);
+    </FeedStyle>);
 }
 
 export default Feed;

@@ -3,8 +3,9 @@
   min-width: 600px;
   margin: 0 auto;
   border-bottom: 1px solid rgb(228, 228, 228);
-  padding: 20px;
+  padding: 40px 20px 20px 20px;
   margin-bottom: 20px;
+  border-radius: 20px;
 }
 
 button {
@@ -33,21 +34,13 @@ button {
   border-radius: 100%;
 }
 .feed {
-    color: #4a4a4a;
     position: relative;
     padding: 4px 11px !important;
     margin-top: -16px !important;
-    border-radius: 10px;
-}
-.feed:hover {
-  background-color: white;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
-    0 0px 0 1px rgba(10, 10, 10, 0.02);
-  cursor: pointer;
-  transition: 0.4s;
 }
 .username {
   font-size:15px;
+  margin-bottom: 10px;
 }
 
 .contentContainer {
@@ -58,6 +51,7 @@ button {
   font-size: 23px;
   color: #494949;
   margin-left : 50px;
+  margin-bottom: 50px;
 }
 .content {
   width: 700px;
@@ -66,7 +60,6 @@ button {
   word-break: break-all;
   outline: none;
   margin-top: -5px;
-  color: #6c6c6c;
   margin-left : 50px;
   margin-bottom: 20px;
 }
@@ -207,10 +200,9 @@ textarea {
 }
 a {
   text-decoration: none;
-  color: #494949;
 }
 .category{
   font-size: 15px;
-  color: #6c6c6c;
+  margin-bottom: 20px;
   margin-left : 50px;
 }

@@ -1,3 +1,6 @@
+.feed_container_darkmode {
+  background-color: black;
+}
 .feed_container {
   width: 60%;
   min-width: 800px;
@@ -35,7 +38,7 @@
   margin-left: 15px;
 }
 .feed_content {
-  min-height: 500px;
+  min-height: 300px;
 }
 .feed_comment_box {
   width: 100%;

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import MyPage from "./pages/MyPage/MyPage";
 import LoginPage from "./pages/LoginPage";
+import { useState } from "react";
 // import { Cookies } from "react-cookie";
 // import axios from "axios";
 // import { useEffect } from "react";
@@ -42,6 +43,7 @@ function App() {
     //     console.log('토큰이 없습니다.');
     //   }
     // }, [jwtToken, cookies]);
+
 
   return (
     <Router>
