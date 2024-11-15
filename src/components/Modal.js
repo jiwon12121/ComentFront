@@ -1,6 +1,20 @@
 import { useRef } from "react";
 import "../styles/modal.css";
 import { PropTypes } from 'prop-types';
+import styled from "styled-components";
+
+const ModalStyle = styled.div`
+  p {
+    color: black;
+  }
+  h1 {
+    color: black;
+    margin-bottom: 10px;
+  }
+  span {
+    color: black;
+  }
+`
 
 const Modal = (props) => {
 
@@ -33,7 +47,7 @@ const Modal = (props) => {
     }
 
 
-  return (
+  return ( <ModalStyle>
     <div className={open ? "openModal modal" : "modal"} onClick={closeModal}>
         {open ? (
           <section ref={modalRef}>
@@ -76,6 +90,7 @@ const Modal = (props) => {
           </section>
         ) : null}
       </div>
+    </ModalStyle>
   );
 };
 

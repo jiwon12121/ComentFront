@@ -10,6 +10,7 @@
 .feed_content_box {
   width: 100%;
   min-height: 500px;
+  border-bottom: 1px solid grey;
 }
 .feed_content_title {
   font-size: 25px;

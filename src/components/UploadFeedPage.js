@@ -1,6 +1,20 @@
 import { useEffect, useState } from 'react';
-import styled from '../styles/uploadFeedPage.module.css';
+import style from '../styles/uploadFeedPage.module.css';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+const UploadStyle = styled.div`
+    textarea {
+        color: ${({ theme }) => theme.textColor};
+    }
+
+    &:hover {
+        background-color: ${({ theme }) => theme.hoverBackground};
+        box-shadow: ${({ theme }) => theme.hoverBoxShadow};
+        cursor: pointer;
+        transition: 0.4s;
+    }
+`
 
 function UploadFeedPage() {
     const navigate = useNavigate();
@@ -29,15 +43,15 @@ function UploadFeedPage() {
     const [content, setContent] = useState('');
 
     return (
-        <div className={styled.container}>
-            <div className={styled.uploadContainer}>
-                <div className={styled.profile} >
-                    <img className={styled.profImg} src="/profile.png" width='40px' height='40px'></img>
+        <div className={style.container}>
+            <UploadStyle className={style.uploadContainer}>
+                <div className={style.profile} >
+                    <img className={style.profImg} src="/profile.png" width='40px' height='40px'></img>
                 </div>
                 <form method='post' action='http://localhost:8000/feed' onSubmit={submitFeed} >
                     <input type="hidden" name="user_id" value={userInfo._id} />
-                    <div className={styled.select}>
-                        <select className={styled.category} name="category" >
+                    <div className={style.select}>
+                        <select className={style.category} name="category" >
                             <option value="Gaming">Gaming</option>
                             <option value="Sports">Sports</option>
                             <option value="Business">Business</option>
@@ -46,17 +60,17 @@ function UploadFeedPage() {
                             <option value="Celebrity">Celebrity</option>
                         </select>
                     </div>
-                    <div className={styled.titleBox}>
-                        <input className={styled.title} type="text" name="title" placeholder="제목을 입력해주세요." value={title} onChange={e => setTitle(e.target.value)} />
+                    <div className={style.titleBox}>
+                        <input className={style.title} type="text" name="title" placeholder="제목을 입력해주세요." value={title} onChange={e => setTitle(e.target.value)} />
                     </div>
-                    <div className={styled.contentBox}>
-                        <textarea className={styled.content} name="content" placeholder="내용을 입력해주세요." value={content} onChange={e => setContent(e.target.value)} />
+                    <div className={style.contentBox}>
+                        <textarea className={style.content} name="content" placeholder="내용을 입력해주세요." value={content} onChange={e => setContent(e.target.value)} />
                     </div>
-                    <div className={styled.uploadBox}>
-                        <input className={styled.upload} type="submit" value="Upload" />
+                    <div className={style.uploadBox}>
+                        <input className={style.upload} type="submit" value="Upload" />
                     </div>
                 </form>
-            </div>
+            </UploadStyle>
         </div>
     )
 }

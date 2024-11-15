@@ -1,15 +1,26 @@
 import style from '../styles/FeedPage.module.css';
+import { PropTypes } from 'prop-types';
 import Header from '../components/Header';
 import Like from '../components/Like';
 import Comment from '../components/Comment';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import useAuth from '../Auth';
 
 function FeedPage() {
+
   const { feed_id } = useParams();
   const [feed, setFeed] = useState();
   const [darkMode, setDarkMode] = useState();
+
+  //로그인 여부 확인
+  const isLoggedIn = useAuth();
+  let user = null;
+  if (isLoggedIn) {
+    user = JSON.parse(sessionStorage.getItem('userinfo') || '{}');
+  }
+
   useEffect(() => {
     const feedData = async () => {
       try {
@@ -35,7 +46,7 @@ function FeedPage() {
             <h2 className={style.feed_content_title}>{feed?.title}</h2>
             <p className={style.feed_content_text}>{feed?.content}</p>
           </div>
-          <Like />
+          <Like key={feed_id} feed_id={feed_id} isLoggedIn={isLoggedIn} />
         </div>
         <div className={style.feed_comment_form}>
           

@@ -22,6 +22,12 @@ const FeedStyle = styled.div`
     }
 `;
 
+const FeedComment = styled.div`
+    background-color: ${({ theme }) => theme.feedCommentBg};
+    color: ${({ theme }) => theme.textColor};
+    border-radius: 10px;
+`
+
 function Feed(props) {
     Feed.propTypes = {
         feed: PropTypes.object.isRequired,
@@ -170,49 +176,53 @@ function Feed(props) {
 
     return (<FeedStyle className={style.feed_container}>
             <div className={style.feed}>
-                <div className={style.profile} >
-                    <img className={style.profImg} src="/profile.png" width='40px' height='40px'></img>
-                </div>
-                <p className={style.username}>{props.feed.user_id.nickname} ㆍ {timetText}</p>
-                <p className={style.category}>{props.feed.category}</p>
-                {edit?(
-                    <form method='post' onSubmit={submitFeed}>
-                        <input type="hidden" name="user_id" value={props.feed.user_id} />
-                        <input type="hidden" name="category" value={props.feed.category} />
-                        <input className={style.editTitle} type="text" name="title" value={t} onChange={(e)=>{setT(e.target.value)}} /><br/>
-                        <textarea className={style.content} name="content" value={c} onChange={(e)=>{setC(e.target.value)}} />
-                        <input className={style.editSubmitBtn} type="submit" value="Edit" />
-                        <button className={style.editCancelBtn} onClick={()=>{editFeed(false)}}>Cancel</button>
-                    </form>
-                ):(
-                    <>
-                        <h1 className={style.title}><Link to={`/feed/${props.feed._id}`}>{props.feed.title}</Link></h1>
-                        <p className={style.content}>{props.feed.content}</p>
-                    </>
-                )}
-                <div className={style.other_container}>
-                    <div className={style.like_box}>
-                        <Like key={props.feed._id} feed_id={props.feed._id} isLoggedIn={props.isLoggedIn} />
-                    </div>
-                    <a className={style.comment} onClick={commentClick}>{countComment}<FaRegCommentDots /></a>
-                    {!edit && props.user && props.user._id === props.feed.user_id._id ? (
-                        <div className={style.deledit}>
-                            <button className={style.delete} onClick={deleteFeed}><MdDeleteForever /></button>
-                            <button className={style.edit} onClick={()=>{editFeed(true)}}><BiEdit /></button>
+                <div>
+                    <Link to={`/feed/${props.feed._id}`}>
+                        <div className={style.profile} >
+                            <img className={style.profImg} src="/profile.png" width='40px' height='40px'></img>
                         </div>
-                    ) : null}
+                        <p className={style.username}>{props.feed.user_id.nickname} ㆍ {timetText}</p>
+                        <p className={style.category}>{props.feed.category}</p>
+                        {edit?(
+                            <form method='post' onSubmit={submitFeed}>
+                                <input type="hidden" name="user_id" value={props.feed.user_id} />
+                                <input type="hidden" name="category" value={props.feed.category} />
+                                <input className={style.editTitle} type="text" name="title" value={t} onChange={(e)=>{setT(e.target.value)}} /><br/>
+                                <textarea className={style.content} name="content" value={c} onChange={(e)=>{setC(e.target.value)}} />
+                                <input className={style.editSubmitBtn} type="submit" value="Edit" />
+                                <button className={style.editCancelBtn} onClick={()=>{editFeed(false)}}>Cancel</button>
+                            </form>
+                        ):(
+                            <>
+                                <h1 className={style.title}>{props.feed.title}</h1>
+                                <p className={style.content}>{props.feed.content}</p>
+                            </>
+                        )}
+                    </Link>
                 </div>
-                <div style={{ display: commentView ? 'block' : 'none' }}>
-                    <div className={style.feedComment}>{props.feed.comments.map((comments) => (
-                        <div key={comments._id}>{comments.user_id.nickname} {comments.comment}</div>
-                    ))}</div>
-                    <form onSubmit={commentSubmit} key={props.feed._id}>
-                        <input type="text" value={comment.comment} onChange={commentChange} name='comment' className={style.comment_box} placeholder='댓글을 적어주세요.'></input>
-                        <input type="hidden" value={props.feed._id} name='feed_id'></input>
-                        <input type="hidden" value={props.feed.user_id._id} name='user_id'></input>
-                        <input type="submit" value="작성" className={style.commentBtn}></input>
-                    </form>
-                </div>
+                    <div className={style.other_container}>
+                        <div className={style.like_box}>
+                            <Like key={props.feed._id} feed_id={props.feed._id} isLoggedIn={props.isLoggedIn} />
+                        </div>
+                        <a className={style.comment} onClick={commentClick}>{countComment}<FaRegCommentDots /></a>
+                        {!edit && props.user && props.user._id === props.feed.user_id._id ? (
+                            <div className={style.deledit}>
+                                <button className={style.delete} onClick={deleteFeed}><MdDeleteForever /></button>
+                                <button className={style.edit} onClick={()=>{editFeed(true)}}><BiEdit /></button>
+                            </div>
+                        ) : null}
+                    </div>
+                    <div style={{ display: commentView ? 'block' : 'none' }}>
+                        <div className={style.feedComment}>{props.feed.comments.map((comments) => (
+                            <FeedComment key={comments._id}>{comments.user_id.nickname} {comments.comment}</FeedComment>
+                        ))}</div>
+                        <form onSubmit={commentSubmit} key={props.feed._id}>
+                            <input type="text" value={comment.comment} onChange={commentChange} name='comment' className={style.comment_box} placeholder='댓글을 적어주세요.'></input>
+                            <input type="hidden" value={props.feed._id} name='feed_id'></input>
+                            <input type="hidden" value={props.feed.user_id._id} name='user_id'></input>
+                            <input type="submit" value="작성" className={style.commentBtn}></input>
+                        </form>
+                    </div>
             </div>
     </FeedStyle>);
 }

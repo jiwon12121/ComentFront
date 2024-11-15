@@ -11,9 +11,38 @@ import { Cookies } from "react-cookie";
 import { useNavigate } from 'react-router-dom';
 import classNames from "classnames";
 import { DataContext } from "../DataContext";
+import styled from "styled-components";
 
 //로그인정보 관련
 import useAuth from "../Auth";
+
+const HeaderStyle = styled.div`
+  background-color: ${({ theme }) => theme.bgColor};
+  color: ${({ theme }) => theme.textColor};
+  border: ${({ theme }) => theme.borderColor};
+  transition: 0.3s;
+
+  svg {
+    color: ${({ theme }) => theme.textColor};
+  }
+`
+
+const SideBarWrapper = styled.div`
+  background-color: ${({ theme }) => theme.sideBarColor};
+  color: ${({ theme }) => theme.textColor};
+  border: ${({ theme }) => theme.borderColor};
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  display: flex;
+  padding: 20px;
+  padding-top: 50px;
+
+  margin-left: ${({ isOpen }) => (isOpen ? '-300px' : '0')};
+  transition: margin-left 0.3s ease;
+`
 
 function Header() {
 
@@ -27,10 +56,10 @@ function Header() {
     setModalOpen(false);
   }
 
-  const [showNavigation, setShowNavigation] = useState(true);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
 
   const toggleNavigation = () => {
-    setShowNavigation(!showNavigation);
+    setSideBarOpen(!sideBarOpen);
   };
 
   //로그인 정보 
@@ -76,12 +105,6 @@ function Header() {
     }
   });
 
-  useEffect(() => {
-    //페이지 로드 시 darkmode 상태를 localStorage에서 불러오기
-    const currentMode = localStorage.getItem("darkmode");
-    console.log(currentMode);
-    
-  }, []);
 
   const sendMode = useContext(DataContext);
 
@@ -113,14 +136,16 @@ function Header() {
 
   return (
     <React.Fragment>
-    <>
+    <HeaderStyle className={styles.container}>
     <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
     </head>
-      {showNavigation && <SideBar />}
+      <SideBarWrapper isOpen={sideBarOpen}>
+        <SideBar />
+      </SideBarWrapper>
       <div className={styles.container}>
         <div className={styles.menuShow}>
-            <CiMenuBurger size="30" color="black" onClick={toggleNavigation} />
+            <CiMenuBurger size="30" onClick={toggleNavigation} />
         </div>
         <div className={styles.between}>
           <div className="logoBox">
@@ -174,7 +199,7 @@ function Header() {
           )}
         </div>
       </div>
-    </>
+    </HeaderStyle>
     </React.Fragment>
   );
 }

@@ -49,9 +49,8 @@ button {
 
 .title {
   font-size: 23px;
-  color: #494949;
   margin-left : 50px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 .content {
   width: 700px;
@@ -61,7 +60,7 @@ button {
   outline: none;
   margin-top: -5px;
   margin-left : 50px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 .other_container {
@@ -92,8 +91,6 @@ button {
   width: 85%;
   padding: 20px;
   margin: 30px;
-  background-color:beige;
-  border-radius: 10px;
 }
 .comment {
   width: 80px;

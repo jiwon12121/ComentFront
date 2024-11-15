@@ -1,6 +1,9 @@
 .feed_comment_box {
-  width: 100%;
+  width: 50%;
   min-height: 100px;
+  margin-bottom:50px;
+  border-radius: 20px;
+  padding: 20px 20px 0 20px;
 }
 .feed_comment_info {
   display: flex;
@@ -17,11 +20,10 @@
 }
 .feed_comment_created_at {
   font-size: 12px;
-  line-height: 25px;
+  line-height: 15px;
   margin-left: 15px;
 }
 .feed_comment_content {
   font-size: 15px;
-  margin-top: 20px;
   margin-left: 60px;
 }

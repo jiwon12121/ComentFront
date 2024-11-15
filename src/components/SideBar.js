@@ -1,6 +1,6 @@
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import styled from '../styles/SideBar.module.css';
+import style from '../styles/SideBar.module.css';
 import { useNavigate } from 'react-router-dom';
 
 // 아이콘 추가
@@ -15,7 +15,7 @@ const SideBar = () => {
     const navigate = useNavigate();
     return (
         <>
-            <div className={styled.sideBar}>
+            <div className={style.sideBar}>
                 <Navigation
                     onSelect={({ itemId }) => {
                         if(itemId !== ''){
@@ -26,42 +26,42 @@ const SideBar = () => {
                         {
                             title: 'Home',
                             itemId: '/',
-                            elemBefore: () => <IoHomeOutline size="27" color="black" />,
+                            elemBefore: () => <IoHomeOutline size="27" />,
                         },
                         {
                             title: 'Popular',
                             itemId: '/category/Popular',
-                            elemBefore: () => <GoArrowUpRight size="27" color="black" />,
+                            elemBefore: () => <GoArrowUpRight size="27"/>,
                         },
                         {
                             title: 'Gaming',
                             itemId: '/category/Gaming',
-                            elemBefore: () => <FaGamepad size="27" color="black" />,
+                            elemBefore: () => <FaGamepad size="27"/>,
                         },
                         {
                             title: 'Sports',
                             itemId: '/category/Sports',
-                            elemBefore: () => <MdOutlineSportsBaseball size="27" color="black" />,
+                            elemBefore: () => <MdOutlineSportsBaseball size="27" />,
                         },
                         {
                             title: 'Business',
                             itemId: '/category/Business',
-                            elemBefore: () => <GoGraph size="27" color="black" />,
+                            elemBefore: () => <GoGraph size="27" />,
                         },
                         {
                             title: 'Crypto',
                             itemId: '/category/Crypto',
-                            elemBefore: () => <SiBlockchaindotcom size="27" color="black" />,
+                            elemBefore: () => <SiBlockchaindotcom size="27" />,
                         },
                         {
                             title: 'Television',
                             itemId: '/category/Television',
-                            elemBefore: () => <PiTelevision size="27" color="black" />,
+                            elemBefore: () => <PiTelevision size="27" />,
                         },
                         {
                             title: 'Celebrity',
                             itemId: '/category/Celebrity',
-                            elemBefore: () => <MdStarBorder size="27" color="black" />,
+                            elemBefore: () => <MdStarBorder size="27" />,
                         },
                     ]}
                 />

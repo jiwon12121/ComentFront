@@ -79,7 +79,6 @@ function App() {
 
   const receiveMode = (data) => {
     setModeStore(data);
-    console.log(modeStore);
   };
 
   return <>
