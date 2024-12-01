@@ -16,7 +16,7 @@ function MyPage() {
   const fetchData = async () => {
     if (isLoggedIn && user?._id) {
       try {
-        const response = await axios.get(`http://localhost:8000/feed/user/${user._id}`);
+        const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/feed/user/${user._id}`);
         setFeed(response.data);
       } catch (error) {
         console.error("피드를 불러오는 데 실패했습니다.", error);

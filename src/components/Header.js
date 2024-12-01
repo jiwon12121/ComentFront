@@ -75,7 +75,7 @@ function Header() {
   },[isLoggedIn]);
 
   async function fetchUserInfo() {
-    const response = await axios.post('http://localhost:8000/login/userInfo',{
+    const response = await axios.post(`${process.env.REACT_APP_Aws_Url}/login/userInfo`,{
       token: jwtToken
     });
     setInfo(response.data);

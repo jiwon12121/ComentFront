@@ -35,15 +35,15 @@ const Modal = (props) => {
 
   // oauth 요청 URL
     const handleKakaoLogin = ()=>{
-        window.location.href = 'http://localhost:8000/login/kakao-login-page';
+        window.location.href = `${process.env.REACT_APP_Aws_Url}/login/kakao-login-page`;
     }
 
     const handleNaverLogin = ()=> {
-      window.location.href = 'http://localhost:8000/login/naver-login-page'
+      window.location.href = `${process.env.REACT_APP_Aws_Url}/login/naver-login-page`
     }
 
     const handleGoogleLogin = ()=> {
-      window.location.href = 'http://localhost:8000/login/google-login-page'
+      window.location.href = `${process.env.REACT_APP_Aws_Url}/login/google-login-page`
     }
 
 

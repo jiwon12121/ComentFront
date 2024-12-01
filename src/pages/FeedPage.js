@@ -24,7 +24,7 @@ function FeedPage() {
   useEffect(() => {
     const feedData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/feed/${feed_id}`);
+        const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/feed/${feed_id}`);
         setFeed(response.data);
       } catch {
         console.log("feed not exist");

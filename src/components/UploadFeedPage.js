@@ -48,7 +48,7 @@ function UploadFeedPage() {
                 <div className={style.profile} >
                     <img className={style.profImg} src="/profile.png" width='40px' height='40px'></img>
                 </div>
-                <form method='post' action='http://localhost:8000/feed' onSubmit={submitFeed} >
+                <form method='post' action={`${process.env.REACT_APP_Aws_Url}/feed`} onSubmit={submitFeed} >
                     <input type="hidden" name="user_id" value={userInfo._id} />
                     <div className={style.select}>
                         <select className={style.category} name="category" >

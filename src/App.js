@@ -50,7 +50,7 @@ function App() {
 
   useEffect(() => {
     if(jwtToken) {
-      axios.post('http://localhost:8000/login/userInfo',{
+      axios.post(`${process.env.REACT_APP_Aws_Url}/login/userInfo`,{
         token: jwtToken
       }).then((res) => {
         userInfo = {

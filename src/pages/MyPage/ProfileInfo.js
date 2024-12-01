@@ -33,7 +33,7 @@ function MyPage() {
       };
       const saveToggleStates = async () => {
         try {
-          await axios.post('http://localhost:8000/saveToggleStates', { toggleStates });
+          await axios.post(`${process.env.REACT_APP_Aws_Url}/saveToggleStates`, { toggleStates });
           console.log('토글 상태가 서버에 전송되었습니다.');
         } catch (error) {
           console.error('토글 상태를 서버에 전송하는 도중 에러가 발생했습니다:', error);
@@ -59,7 +59,7 @@ function MyPage() {
         const fetchData = async () => {
             if (user && user._id) {
                 try {
-                    const response = await axios.get(`http://localhost:8000/mypage/updatedUser/${user._id}`);
+                    const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/mypage/updatedUser/${user._id}`);
                     if (response.data.about) {
                         setAboutValue(response.data.about);
                     }
@@ -79,7 +79,7 @@ function MyPage() {
                         console.error('유효하지 않은 user._id 입니다.');
                         return;
                     }
-                    const response = await axios.post(`http://localhost:8000/mypage/update/${user._id}`, {
+                    const response = await axios.post(`${process.env.REACT_APP_Aws_Url}/mypage/update/${user._id}`, {
                         about: aboutValue
                     });
                     setAboutValue(response.data.about);
@@ -106,7 +106,7 @@ function MyPage() {
             return;
         }
         try {
-            const response = await axios.post(`http://localhost:8000/mypage/updateNickname/${user._id}`, {
+            const response = await axios.post(`${process.env.REACT_APP_Aws_Url}/mypage/updateNickname/${user._id}`, {
                 nickname: nickname,
             });
             console.log('닉네임 저장 성공:', response.data);

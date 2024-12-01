@@ -17,7 +17,7 @@ function Like(props) {
     
     const pawButton = useRef(null);
     async function likeCountFecth(){
-        const response = await axios.get(`http://localhost:8000/feed/like/${props.feed_id}`);
+        const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/feed/like/${props.feed_id}`);
         setLikeCount(response.data);
     }
     useEffect(() => {
@@ -65,16 +65,16 @@ function Like(props) {
             return;
         }
         if(like){
-            axios.post(`http://localhost:8000/feed/unlike/${props.feed_id}/${user._id}`);
+            axios.post(`${process.env.REACT_APP_Aws_Url}/feed/unlike/${props.feed_id}/${user._id}`);
             setLike(false);
         } else {
-            axios.post(`http://localhost:8000/feed/like/${props.feed_id}/${user._id}`);
+            axios.post(`${process.env.REACT_APP_Aws_Url}/feed/like/${props.feed_id}/${user._id}`);
             setLike(true);
         }
     }
 
     const isLiked = async () => {
-        const response = await axios.get(`http://localhost:8000/feed/like/${props.feed_id}/${user._id}`);
+        const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/feed/like/${props.feed_id}/${user._id}`);
         if (response.data) {
             pawButton.current.classList.add('animation', 'liked', 'confetti');
             setLike(true);

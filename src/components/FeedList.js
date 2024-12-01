@@ -21,25 +21,25 @@ function FeedList(props) {
             let fetchDataCategory = null;
             if(props.category==='popular'){
                 fetchDataCategory = async () => {
-                    const response = await axios.get('http://localhost:8000/feed/category/Popular');
+                    const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/feed/category/Popular`);
                     setFeeds(response.data);
                 };
             } else {
                 fetchDataCategory = async () => {
-                    const response = await axios.get(`http://localhost:8000/feed/category/${props.category}`);
+                    const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/feed/category/${props.category}`);
                     setFeeds(response.data);
                 };
             }
             fetchDataCategory();
         } else if(props.keyword){
             const fetchDataKeyword = async () => {
-                const response = await axios.get(`http://localhost:8000/feed/search/${props.keyword}`);
+                const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/feed/search/${props.keyword}`);
                 setFeeds(response.data);
             };
             fetchDataKeyword();
         } else {
             const fetchData = async () => {
-                const response = await axios.get('http://localhost:8000/feed');
+                const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/feed`);
                 setFeeds(response.data);
             };
             fetchData();

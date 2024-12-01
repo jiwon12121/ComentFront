@@ -65,7 +65,7 @@ function Feed(props) {
         console.log(commentData);
 
         await axios
-            .post("http://localhost:8000/comment", commentData)
+            .post(`${process.env.REACT_APP_Aws_Url}/comment`, commentData)
             .then((response) => {
                 if (response.status === 201) {
                     alert("comment upload success");
@@ -88,7 +88,7 @@ function Feed(props) {
     };
 
     const commentCount = async () => {
-        const response = await axios.get(`http://localhost:8000/comment/count/${props.feed._id}`)
+        const response = await axios.get(`${process.env.REACT_APP_Aws_Url}/comment/count/${props.feed._id}`)
             .catch((err) => {
                 console.log(err);
             });
@@ -105,7 +105,7 @@ function Feed(props) {
             return;
         }
         try {
-            const response = await axios.post(`http://localhost:8000/feed/${props.feed._id}/delete`);
+            const response = await axios.post(`${process.env.REACT_APP_Aws_Url}/feed/${props.feed._id}/delete`);
             // 삭제 성공시 페이지 리로드
             if (response.data) {
                 window.location.reload();
@@ -136,7 +136,7 @@ function Feed(props) {
             return;
         }
 
-        await axios.post(`http://localhost:8000/feed/${props.feed._id}`, {
+        await axios.post(`${process.env.REACT_APP_Aws_Url}/feed/${props.feed._id}`, {
             user_id: props.user._id,
             title: t,
             category: props.feed.category,
